@@ -30,7 +30,7 @@ python -m venv .venv
 pip install -r requirements.txt
 flask --app shop init-db     # creates the database with sample products
 flask --app shop run         # open http://127.0.0.1:5000
-python -m pytest             # 8 tests: catalog, login, checkout, stock, report
+python -m pytest             # 9 tests: catalog, login, checkout, stock, report
 ```
 
 ## What I would add next

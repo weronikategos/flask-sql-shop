@@ -18,6 +18,13 @@ def test_catalog_filters_by_category(client):
     assert "Hand coffee grinder" not in page
 
 
+def test_sweets_category_shows_only_sweets(client):
+    page = client.get("/?category=4").get_data(as_text=True)
+    assert "Dark chocolate 70%" in page
+    assert "Almond cantuccini" in page
+    assert "Brazil whole bean coffee" not in page
+
+
 def test_register_rejects_duplicate_email(client):
     data = {"name": "Ala", "email": "ala@example.com", "password": "secretpass"}
     client.post("/register", data=data)

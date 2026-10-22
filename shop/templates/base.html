@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Coffee Shop{% endblock %}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 860px; margin: 0 auto; padding: 0 16px 40px; }
+    nav { display: flex; gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
+    nav .brand { font-weight: 700; margin-right: auto; }
+    a { color: #6b3e1e; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; }
+    .flash { background: #fff4d6; padding: 8px 12px; border-radius: 6px; margin-top: 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; }
+    form.inline { display: inline; }
+    input, button { font: inherit; padding: 6px 10px; }
+    label { display: block; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="brand" href="{{ url_for('shop.catalog') }}">☕ Coffee Shop</a>
+    <a href="{{ url_for('shop.cart') }}">Cart ({{ session.get('cart', {}).values()|sum }})</a>
+    {% if g.customer %}
+      <a href="{{ url_for('shop.orders') }}">My orders</a>
+      <a href="{{ url_for('shop.report') }}">Report</a>
+      <span>{{ g.customer.name }}</span>
+      <a href="{{ url_for('shop.logout') }}">Log out</a>
+    {% else %}
+      <a href="{{ url_for('shop.login') }}">Log in</a>
+      <a href="{{ url_for('shop.register') }}">Sign up</a>
+    {% endif %}
+  </nav>
+  {% for message in get_flashed_messages() %}<div class="flash">{{ message }}</div>{% endfor %}
+  {% block content %}{% endblock %}
+</body>
+</html>

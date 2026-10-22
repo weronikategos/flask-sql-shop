@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Products</h1>
+<p>
+  <a href="{{ url_for('shop.catalog') }}">All</a>
+  {% for c in categories %} · <a href="{{ url_for('shop.catalog', category=c.category_id) }}">{{ c.name }}</a>{% endfor %}
+</p>
+<div class="grid">
+  {% for p in products %}
+  <div class="card">
+    <small>{{ p.category }}</small>
+    <h3>{{ p.name }}</h3>
+    <p>{{ p.description }}</p>
+    <p><strong>{{ "%.2f"|format(p.price) }} PLN</strong> · in stock: {{ p.stock }}</p>
+    {% if p.stock > 0 %}
+    <form method="post" action="{{ url_for('shop.add_to_cart', product_id=p.product_id) }}">
+      <input type="number" name="quantity" value="1" min="1" max="{{ p.stock }}" style="width:60px">
+      <button type="submit">Add to cart</button>
+    </form>
+    {% else %}<p>Out of stock</p>{% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

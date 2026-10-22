@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Sales report</h1>
+<p>Orders: {{ summary.orders }} · Revenue: {{ "%.2f"|format(summary.revenue) }} PLN · Average order: {{ "%.2f"|format(summary.avg_order) }} PLN</p>
+<h2>Sales by category</h2>
+<table>
+  <tr><th>Category</th><th>Units</th><th>Revenue</th></tr>
+  {% for r in by_category %}<tr><td>{{ r.category }}</td><td>{{ r.units }}</td><td>{{ "%.2f"|format(r.revenue) }} PLN</td></tr>{% endfor %}
+</table>
+<h2>Best-selling products</h2>
+<table>
+  <tr><th>Product</th><th>Units</th></tr>
+  {% for r in top_products %}<tr><td>{{ r.name }}</td><td>{{ r.units }}</td></tr>{% endfor %}
+</table>
+{% endblock %}

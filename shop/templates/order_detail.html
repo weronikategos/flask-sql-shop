@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Order #{{ order.order_id }}</h1>
+<p>Placed: {{ order.created_at }}</p>
+<table>
+  <tr><th>Product</th><th>Quantity</th><th>Price</th><th>Subtotal</th></tr>
+  {% for i in items %}
+  <tr><td>{{ i.name }}</td><td>{{ i.quantity }}</td><td>{{ "%.2f"|format(i.unit_price) }} PLN</td><td>{{ "%.2f"|format(i.subtotal) }} PLN</td></tr>
+  {% endfor %}
+</table>
+<p><strong>Total: {{ "%.2f"|format(order.total) }} PLN</strong></p>
+{% endblock %}

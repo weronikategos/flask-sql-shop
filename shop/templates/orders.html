@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>My orders</h1>
+{% if orders %}
+<table>
+  <tr><th>No.</th><th>Date</th><th>Items</th><th>Total</th></tr>
+  {% for o in orders %}
+  <tr><td><a href="{{ url_for('shop.order_detail', order_id=o.order_id) }}">#{{ o.order_id }}</a></td>
+      <td>{{ o.created_at }}</td><td>{{ o.items }}</td><td>{{ "%.2f"|format(o.total) }} PLN</td></tr>
+  {% endfor %}
+</table>
+{% else %}<p>You have no orders yet.</p>{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+services:
+  shop:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: ${SECRET_KEY:-change-me-locally}
+    volumes:
+      - shop-data:/app/instance  # keeps the database between restarts
+
+volumes:
+  shop-data:

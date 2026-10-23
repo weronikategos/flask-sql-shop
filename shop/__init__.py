@@ -13,7 +13,9 @@ def create_app(test_config=None):
         app.config.update(test_config)
     os.makedirs(app.instance_path, exist_ok=True)
 
-    from . import db, routes
+    from . import api, db, demo_data, routes
     db.init_app(app)
+    app.cli.add_command(demo_data.demo_data_command)
     app.register_blueprint(routes.bp)
+    app.register_blueprint(api.bp)
     return app
